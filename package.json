@@ -1,6 +1,6 @@
 {
   "name": "node-snapchat-marketing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nodejs client for unofficial Snapchat Marketing API",
   "main": "index.js",
   "scripts": {
