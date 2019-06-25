@@ -1,12 +1,13 @@
 {
   "name": "node-snapchat-marketing",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Nodejs client for unofficial Snapchat Marketing API",
-  "main": "index.js",
+  "main": "Snapchat.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "https://github.com/pkellz/node-snap",
+  "repository": "https://github.com/pkellz/node-snap",
   "keywords": [
     "snapchat",
     "api",
