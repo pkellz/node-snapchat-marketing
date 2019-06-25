@@ -1,5 +1,5 @@
 {
-  "name": "node-snap",
+  "name": "node-snapchat-marketing",
   "version": "1.0.0",
   "description": "Nodejs client for unofficial Snapchat Marketing API",
   "main": "index.js",

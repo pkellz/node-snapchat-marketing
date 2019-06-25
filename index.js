@@ -1,119 +1,105 @@
 const fetch = require("node-fetch")
 function Snap({client_id, client_secret, code, grant_type, redirect_uri, response_type})
 {
-    this.client_id = client_id
-    this.client_secret = client_secret
-    this.grant_type = grant_type
-    this.redirect_uri = redirect_uri
-    this.response_type = response_type
-}
-
-Snap.prototype.setAccessToken = function(accessToken)
-{
-  this.accessToken = accessToken
+    this.options =
+    {
+      client_id,
+      client_secret,
+      grant_type,
+      redirect_uri,
+      response_type,
+      urls: {
+        authorize: `https://accounts.snapchat.com/login/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`,
+        accessToken: `https://accounts.snapchat.com/login/oauth2/access_token?grant_type=${grant_type}&client_secret=${client_secret}&client_id=${client_id}`,
+        me: "https://adsapi.snapchat.com/v1/me",
+        organizations: "https://adsapi.snapchat.com/v1/me/organizations",
+        specificOrganization: "https://adsapi.snapchat.com/v1/organizations"
+      },
+      httpOptions: {}
+    }
 }
 
 Snap.prototype.getAuthorizeUrl = function(scope)
 {
-  console.log(this);
-  let url = "https://accounts.snapchat.com/login/oauth2/authorize?"
-  url += `client_id=${this.client_id}&`
-  url += `redirect_uri=${this.redirect_uri}&`
-  url += `response_type=${this.response_type}&`
-  url += `scope=${scope}`
-  return url
+  return this.options.urls.authorize + `&scope=${scope}`
 }
 
-Snap.prototype.getAccessToken = function(code)
+Snap.prototype.getAccessToken = function(code, callback)
 {
-  return new Promise((resolve, reject) => {
-    const fetchAccessTokenUrl = `https://accounts.snapchat.com/login/oauth2/access_token?grant_type=${this.grant_type}&client_secret=${this.client_secret}&client_id=${this.client_id}&code=${code}`
-    fetch(fetchAccessTokenUrl,{
-      method:'POST',
-      headers :{
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrer: 'no-referrer',
-    })
-    .then(res => res.json())
-    .then(token => {
-      this.accessToken = token.access_token
-      resolve(token)
-    })
-    .catch(err => {
-      reject(err)
-    })
-  })
+  if(typeof code === 'function')
+    throw new Error("Must pass in a code")
+
+  this.httpOptions = {
+    method:'POST',
+    headers :{
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }
+  }
+
+  request(this.options.urls.accessToken + `&code=${code}`, this.httpOptions, callback)
 }
 
 Snap.prototype.me = function()
 {
-  return new Promise((resolve, reject)=>{
-    fetch('https://adsapi.snapchat.com/v1/me',{
-      method:'GET',
-      withCredentials:true,
-      credentials:'include',
-      headers : {
-        'Authorization': 'Bearer ' + this.accessToken,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(user => {
-      resolve(user)
-    })
-    .catch(err => {
-      reject(err)
-    })
-  })
+  this.httpOptions = {
+    method:'GET',
+    withCredentials:true,
+    credentials:'include',
+    headers : {
+      'Authorization': 'Bearer ' + this.options.accessToken,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  request(this.options.urls.me, this.httpOptions, callback)
 }
 
-Snap.prototype.getAllOrganizations = function(options)
+Snap.prototype.getAllOrganizations = function(callback)
 {
-  let getAllOrganizationsUrl = "https://adsapi.snapchat.com/v1/me/organizations"
-  if(options.withAdAccounts)
-    getAllOrganizationsUrl += "?with_ad_accounts?true"
-  return new Promise((resolve, reject)=>{
-    fetch(getAllOrganizationsUrl,{
-      method:'GET',
-      withCredentials:true,
-      credentials:'include',
-      headers : {
-        'Authorization': 'Bearer ' + this.accessToken,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(orgs => {
-      resolve(orgs)
-    })
-    .catch(err => {
-      reject(err)
-    })
-  })
+  this.httpOptions = {
+    method:'GET',
+    withCredentials:true,
+    credentials:'include',
+    headers : {
+      'Authorization': 'Bearer ' + this.options.accessToken,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  request(this.options.urls.organizations, this.httpOptions, callback)
 }
 
-Snap.prototype.getOrganizationById = function(id)
+Snap.prototype.getOrganizationById = function(id, callback)
 {
-  return new Promise((resolve, reject)=>{
-    fetch(`https://adsapi.snapchat.com/v1/organizations/${id}`,{
-      method:'GET',
-      withCredentials:true,
-      credentials:'include',
-      headers : {
-        'Authorization': 'Bearer ' + this.accessToken,
-        'Content-Type': 'application/json'
-      }
+  if (typeof id === 'function')
+    throw new Error("Must pass in an ID")
+
+  this.httpOptions = {
+    method:'GET',
+    withCredentials:true,
+    credentials:'include',
+    headers : {
+      'Authorization': 'Bearer ' + this.options.accessToken,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  request(this.options.urls.specificOrganization +`/${id}`, this.httpOptions, callback)
+}
+
+Snap.prototype.setAccessToken = function(accessToken)
+{
+  this.options.accessToken = accessToken
+}
+
+function request(url, options, callback)
+{
+    fetch(url, options).then(res => res.json()).then(resData => {
+      if(resData.request_status === 'SUCCESS')
+        callback(null, resData)
+      else
+        callback(resData, null)
     })
-    .then(res => res.json())
-    .then(orgs => {
-      resolve(orgs)
-    })
-    .catch(err => {
-      reject(err)
-    })
-  })
 }
 
 module.exports = Snap
