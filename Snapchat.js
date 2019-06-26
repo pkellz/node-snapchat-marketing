@@ -13,7 +13,6 @@ function Snap({client_id, client_secret, code, grant_type, redirect_uri, respons
       urls: {
         authorize: `https://accounts.snapchat.com/login/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`,
         accessToken: `https://accounts.snapchat.com/login/oauth2/access_token?grant_type=${grant_type}&client_secret=${client_secret}&client_id=${client_id}`,
-        // accessToken: `https://accounts.snapchat.com/login/oauth2/access_token?grant_type=${grant_type}&client_secret=${client_secret}&client_id=${client_id}`,
         me: "https://adsapi.snapchat.com/v1/me",
         mediaBase: "https://adsapi.snapchat.com/v1/adaccounts",
         organizations: "https://adsapi.snapchat.com/v1/me/organizations",
@@ -59,7 +58,6 @@ Snap.prototype.me = function(callback)
 }
 
 // Organizations
-// TODO - Add withAdAccounts option
 Snap.prototype.getAllOrganizations = function(callback)
 {
   this.httpOptions = {
@@ -138,7 +136,6 @@ Snap.prototype.setAccessToken = function(accessToken)
   this.options.accessToken = accessToken
 }
 
-// TODO - add capability to refresh access token
 Snap.prototype.setRefreshToken = function(refreshToken)
 {
   this.options.refreshToken = refreshToken
