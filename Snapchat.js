@@ -138,6 +138,7 @@ Snap.prototype.setAccessToken = function(accessToken)
   this.options.accessToken = accessToken
 }
 
+// TODO - add capability to refresh access token
 Snap.prototype.setRefreshToken = function(refreshToken)
 {
   this.options.refreshToken = refreshToken
