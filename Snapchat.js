@@ -8,9 +8,12 @@ function Snap({client_id, client_secret, code, grant_type, redirect_uri, respons
       grant_type,
       redirect_uri,
       response_type,
+      accessToken: "",
+      refreshToken:"",
       urls: {
         authorize: `https://accounts.snapchat.com/login/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`,
         accessToken: `https://accounts.snapchat.com/login/oauth2/access_token?grant_type=${grant_type}&client_secret=${client_secret}&client_id=${client_id}`,
+        // accessToken: `https://accounts.snapchat.com/login/oauth2/access_token?grant_type=${grant_type}&client_secret=${client_secret}&client_id=${client_id}`,
         me: "https://adsapi.snapchat.com/v1/me",
         mediaBase: "https://adsapi.snapchat.com/v1/adaccounts",
         organizations: "https://adsapi.snapchat.com/v1/me/organizations",
@@ -133,6 +136,11 @@ Snap.prototype.getAllMedia = function(ad_account_id, callback)
 Snap.prototype.setAccessToken = function(accessToken)
 {
   this.options.accessToken = accessToken
+}
+
+Snap.prototype.setRefreshToken = function(refreshToken)
+{
+  this.options.refreshToken = refreshToken
 }
 
 function request(url, options, callback)
