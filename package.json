@@ -1,13 +1,41 @@
 {
-  "name": "node-snapchat-marketing",
-  "version": "1.0.6",
-  "description": "Nodejs client for unofficial Snapchat Marketing API",
-  "main": "Snapchat.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "node-snapchat-marketing@1.0.6",
+  "_id": "node-snapchat-marketing@1.0.6",
+  "_inBundle": false,
+  "_integrity": "sha512-Y8oAjPtSFN1ji6sUgDSzh5JmfOek5ZljxQCKv1enFnpL2BC/sndqquBDRNju9xMg+gn+tMkNG2yFA7IPhZs8oA==",
+  "_location": "/node-snapchat-marketing",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "node-snapchat-marketing@1.0.6",
+    "name": "node-snapchat-marketing",
+    "escapedName": "node-snapchat-marketing",
+    "rawSpec": "1.0.6",
+    "saveSpec": null,
+    "fetchSpec": "1.0.6"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-snapchat-marketing/-/node-snapchat-marketing-1.0.6.tgz",
+  "_shasum": "07e3f91f63d505e6eecd4b00468fe0de7e5ed403",
+  "_spec": "node-snapchat-marketing@1.0.6",
+  "_where": "C:\\Users\\Patrick\\Desktop\\snap-backend",
+  "author": {
+    "name": "pkellz"
+  },
+  "bugs": {
+    "url": "https://github.com/pkellz/node-snap/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "deprecated": false,
+  "description": "Nodejs client for unofficial Snapchat Marketing API",
   "homepage": "https://github.com/pkellz/node-snap",
-  "repository": "https://github.com/pkellz/node-snap",
   "keywords": [
     "snapchat",
     "api",
@@ -15,9 +43,15 @@
     "marketing",
     "client"
   ],
-  "author": "pkellz",
   "license": "ISC",
-  "dependencies": {
-    "node-fetch": "^2.6.0"
-  }
+  "main": "index.js",
+  "name": "node-snapchat-marketing",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkellz/node-snap.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.6"
 }
