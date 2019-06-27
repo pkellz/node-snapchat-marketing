@@ -1,6 +1,8 @@
 # Snapchat Marketing Node.js Wrapper
 :ghost: Unoffical nodejs client for the Snapchat Marketing API
 
+[Snapchat Marketing API Documentation](https://developers.snapchat.com/api/docs/)
+
 ## Installation
 
 Before you begin, you need to register your app in the [Snapchat developer dashboard](https://developers.snapchat.com/ads/). Notice that the app gets a client ID, secret, and redirect URI required for authenticating with the API.
