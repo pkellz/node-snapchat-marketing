@@ -26,8 +26,6 @@ const snap = new Snap({
   client_id: '<CLIENT_ID>',
   client_secret: '<CLIENT_SECRET>',
   redirect_uri: '<REDIRECT_URI>',
-  grant_type: "authorization_code" || "refresh_token",
-  response_type: "code"
 });
 ```
 
@@ -48,46 +46,47 @@ app.get('/snap/authorize', function(req, res) {
 });
 ```
 
-The URL will lead to a page where your user will be required to login and approve access to his/her Snapchat account. In case that step was successful, Snap will issue an HTTP 302 redirect to the redirect_uri defined in your [Snapchat business account](https://business.snapchat.com). On that redirect, you will receive a single-use authorization code.
+The URL will lead to a page where your user will be required to login and approve access to his/her Snapchat account. In case that step was successful, Snap will issue a redirect to the `redirect_uri` defined in your [Snapchat business account](https://business.snapchat.com). On that redirect, you will receive a single-use authorization code via a `code` query parameter in the url.
 
 ### Step Two: Receive redirect and get an access token
 
-To complete the authorization you now need to receive the callback and convert the given authorization code into an OAuth access token. You can accomplish that using `snap.getAccessToken`. This method will retrieve the access_token, refresh_token, and token expiration date. `snap.setAccessToken` will store the access_token, refresh_token and token expiration date within the snap object for consecutive requests. Access tokens expire after 30 minutes.
+To complete the authorization you now need to receive the callback and convert the given authorization code into an OAuth access token. You can accomplish that using `snap.authorization`. This method will retrieve and store the access_token, refresh_token, and token expiration date inside the Snap object. Access tokens expire after 1800 seconds (30 minutes).
 
 
 Using Express, you could achieve that as follows:
 
 ```javascript
 app.get('/snap/callback', (req,res)=>{
-  snap.getAccessToken(req.query.code, function(err, token){
-    console.log(token);
-    snap.setAccessToken(token.access_token);
-    snap.setRefreshToken(token.refresh_token);
+  snap.authorization({ authorization_code: req.query.code }, function(err, token){
+    console.log("Access token is: " + token.access_token);
+    console.log("Refresh token is: " + token.access_token);
+    console.log("Access token expires in: " + token.expires_in + " seconds");
     res.redirect('/');
   });
 });
 ```
 
-##### You could also copy the access token and set it in the global scope
+##### You can also manually set access/refresh tokens
 `snap.setAccessToken('<token>');`
+`snap.setRefreshToken('<token>');`
 
 ### Step Three: Make HTTP requests to available resources
 
 Now that you are authenticated, you can issue requests using provided methods.
 
-For instance, to obtain a list of all available organizations associated with your account, you can use `snap.getAllOrganizations`.
+For instance, to obtain a list of all available organizations associated with your account, you can use `snap.organization.getAllOrganizations`.
 
 ```javascript
 
-snap.getAllOrganizations(function(err, org)
+snap.organization.getAllOrganizations(function(err, orgs)
 {
   if(err)
     console.log(err);
   else
-    console.log(org);
+    console.log(orgs);
 });
 ```
-## Methods
+## Library Methods
 
 ### Authorization
 
@@ -112,26 +111,24 @@ app.get('/snap/authorize', function(req, res) {
 });
 ```
 
-#### Get/Set Access Tokens
+#### Retrieve and store a new access token based off of a code
 
 ```javascript
-snap.getAccessToken(code, callback);
-snap.setAccessToken(accessToken);
-snap.setAccessToken(refreshToken);
+snap.authorization(options, callback);
 ```
 
 ##### Parameter
 
-- code - authorization code from the redirect after user is authenticated
+- options (object) - Object with attribute authorization_code OR refresh_token
 
 ##### Example
 
 ```javascript
 app.get('/snap/callback', (req,res)=>{
-  snap.getAccessToken(req.query.code, function(err, token){
-    console.log(token);
-    snap.setAccessToken(token.access_token);
-    snap.setRefreshToken(token.refresh_token);
+  snap.authorization({ authorization_code : req.query.code }, function(err, token){
+    console.log("Access token is: " + accessToken.access_token);
+    console.log("Refresh token is: " + accessToken.access_token);
+    console.log("Access token expires in: " + accessToken.expires_in + " seconds");
     res.redirect('/');
   });
 });
@@ -156,17 +153,17 @@ snap.me(function(err, user){
 })
 ```
 
-### Organizations
+### Organization
 #### [Get all organizations](https://developers.snapchat.com/api/docs/#get-all-organizations)
 
 ```javascript
-snap.getAllOrganizations(callback);
+snap.organization.getAllOrganizations(callback);
 ```
 
 ##### Example
 
 ```javascript
-snap.getAllOrganizations(function(err, orgs){
+snap.organization.getAllOrganizations(function(err, orgs){
   if(err)
     console.log(err);
   else
@@ -177,13 +174,13 @@ snap.getAllOrganizations(function(err, orgs){
 #### [Get organization by id](https://developers.snapchat.com/api/docs/#get-a-specific-organization)
 
 ```javascript
-snap.getOrganizationById(id, callback);
+snap.organization.getOrganizationById(id, callback);
 ```
 
 ##### Example
 
 ```javascript
-snap.getOrganizationById('<organization_id>', function(err, org){
+snap.organization.getOrganizationById('<organization_id>', function(err, org){
   if(err)
     console.log(err);
    else
@@ -196,12 +193,12 @@ snap.getOrganizationById('<organization_id>', function(err, org){
 #### [Create a new Media](https://developers.snapchat.com/api/docs/#create-media)
 
 ```javascript
-snap.createMedia(media, callback);
+snap.media.createMedia(media, callback);
 ```
 
 ##### Parameter
 
-- media (object) - object with options describing type of media to create
+- media (object) - JS object with options describing type of media to create
 
 ##### Example
 
@@ -212,7 +209,7 @@ const newMedia = {
     ]
   }
   
-snap.createMedia(newMedia, function(err, res){
+snap.media.createMedia(newMedia, function(err, res){
   if(err)
     console.log(err);
 });
@@ -223,7 +220,7 @@ snap.createMedia(newMedia, function(err, res){
 #### [Get all Media associated with the authenticated account](https://developers.snapchat.com/api/docs/#get-all-media)
 
 ```javascript
-snap.getAllMedia(adAccountId, callback);
+snap.media.getAllMedia(adAccountId, callback);
 ```
 
 ##### Parameter
@@ -233,7 +230,7 @@ snap.getAllMedia(adAccountId, callback);
 ##### Example
 
 ```javascript
-snap.getAllMedia(adAccountId, function(err,media)
+snap.media.getAllMedia(adAccountId, function(err,media)
   {
     if(err)
       console.log(err);
