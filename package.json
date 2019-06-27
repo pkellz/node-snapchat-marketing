@@ -34,7 +34,7 @@
     "node-fetch": "^2.6.0"
   },
   "deprecated": false,
-  "description": "Nodejs client for unofficial Snapchat Marketing API",
+  "description": "Unofficial Node library for the Snapchat Marketing API",
   "homepage": "https://github.com/pkellz/node-snap",
   "keywords": [
     "snapchat",
