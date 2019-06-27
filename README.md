@@ -69,8 +69,11 @@ app.get('/snap/callback', (req,res)=>{
 ```
 
 ##### You can also manually set access/refresh tokens
-`snap.setAccessToken('<token>');`
-`snap.setRefreshToken('<token>');`
+```javascript
+snap.setAccessToken('<token>');
+snap.setRefreshToken('<token>');
+```
+
 
 ### Step Three: Make HTTP requests to available resources
 
@@ -113,7 +116,7 @@ app.get('/snap/authorize', function(req, res) {
 });
 ```
 
-#### Retrieve and store a new access token based off of a code
+#### Retrieve and store a new access token
 
 ```javascript
 snap.authorization(options, callback);
@@ -135,6 +138,7 @@ app.get('/snap/callback', (req,res)=>{
   });
 });
 ```
+
 
 ### Me
 
