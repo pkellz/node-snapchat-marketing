@@ -1,5 +1,5 @@
 # Snapchat Marketing Node.js Wrapper
-:ghost: Unoffical nodejs client for the Snapchat Marketing API
+:ghost: Unoffical Node library for the Snapchat Marketing API
 
 [Snapchat Marketing API Documentation](https://developers.snapchat.com/api/docs/)
 
