@@ -1,6 +1,7 @@
 # Snapchat Marketing Node.js Wrapper
 :ghost: Unoffical Node library for the Snapchat Marketing API
 
+### Looking for more contributors!
 [Snapchat Marketing API Documentation](https://developers.snapchat.com/api/docs/)
 
 ## Installation
@@ -244,5 +245,3 @@ snap.media.getAllMedia(adAccountId, function(err,media)
       console.log(media);
   })
 ```
-
-#### Looking for more contributors!
