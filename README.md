@@ -4,9 +4,11 @@
 ### Looking for more contributors!
 [Snapchat Marketing API Documentation](https://developers.snapchat.com/api/docs/)
 
-## Installation
+## :wrench: Installation
 
-Before you begin, you need to register your app in the [Snapchat developer dashboard](https://developers.snapchat.com/ads/). Notice that the app gets a client ID, secret, and redirect URI required for authenticating with the API.
+Before you begin, you need to apply for access to the [Snapchat Marketing API](https://developers.snapchat.com/apply/). Once you are approved, you will be able to register a new application in the 'Business Details' section of your [Snapchat Business Account](https://business.snapchat.com/). Notice that the app gets a client ID, secret, and redirect URI required for authenticating with the API.
+
+If you reach an error page when trying to access your Business Account, try disabling any ad-blockers you might have.
 
 After registering your application, you need to install this module in your Node.js project:
 
@@ -14,7 +16,7 @@ After registering your application, you need to install this module in your Node
 npm install node-snapchat-marketing
 ```
 
-## Initialization
+## :arrow_forward: Initialization
 
 In order to use this module, you have to import it in your application first:
 
@@ -32,13 +34,13 @@ const snap = new Snap({
 });
 ```
 
-## Authenticating
+## :key: Authenticating
 
 To make HTTP calls, you need to create an authenticated session with the API.
 
 ### Step One: Authorize
 
-To obtain an OAuth 2 bearer token, you have to authorize your application with the required scope. The only scope currently available is 'snapchat-marketing-api'.
+To obtain an OAuth token, you have to authorize your application with the required scope. The only scope currently available is 'snapchat-marketing-api'.
 
 You are initially required to redirect your user to an authorization URL. You can generate the authorization URL using `snap.getAuthorizeUrl`. In case you are using [Express](http://expressjs.com/), your route definition could look as follows:
 
@@ -56,13 +58,13 @@ The URL will lead to a page where your user will be required to login and approv
 To complete the authorization you now need to receive the callback and convert the given authorization code into an OAuth access token. You can accomplish that using `snap.authorization`. This method will retrieve and store the access_token, refresh_token, and token expiration date inside the Snap object. Access tokens expire after 1800 seconds (30 minutes).
 
 
-Using Express, you could achieve that as follows:
+In Express - If your 'redirect_uri' is https://example.com/snap/callback, your route could look like:
 
 ```javascript
 app.get('/snap/callback', (req,res)=>{
   snap.authorization({ authorization_code: req.query.code }, function(err, token){
     console.log("Access token is: " + token.access_token);
-    console.log("Refresh token is: " + token.access_token);
+    console.log("Refresh token is: " + token.refresh_token);
     console.log("Access token expires in: " + token.expires_in + " seconds");
     res.redirect('/');
   });
@@ -78,12 +80,11 @@ snap.setRefreshToken('<token>');
 
 ### Step Three: Make HTTP requests to available resources
 
-Now that you are authenticated, you can issue requests using provided methods.
+Now that you are authenticated, you can issue requests using the provided library methods.
 
 For instance, to obtain a list of all available organizations associated with your account, you can use `snap.organization.getAllOrganizations`.
 
 ```javascript
-
 snap.organization.getAllOrganizations(function(err, orgs)
 {
   if(err)
@@ -92,7 +93,7 @@ snap.organization.getAllOrganizations(function(err, orgs)
     console.log(orgs);
 });
 ```
-## Library Methods
+## :books: Library Methods
 
 ### Authorization
 
@@ -106,7 +107,7 @@ snap.getAuthorizeUrl(scope);
 
 ##### Parameter
 
-- Use 'snapchat-marketing-api' as your scope.
+- Currently, the only available scope is 'snapchat-marketing-api'.
 
 ##### Example
 
@@ -215,7 +216,7 @@ const newMedia = {
       { name:"Some new media", type:"VIDEO", ad_account_id: myAdAccountId },
     ]
   }
-  
+
 snap.media.createMedia(newMedia, function(err, res){
   if(err)
     console.log(err);
