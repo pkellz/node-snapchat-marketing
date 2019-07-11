@@ -71,9 +71,8 @@ app.get('/snap/callback', (req,res)=>{
 });
 ```
 
-##### You can also manually set access/refresh tokens
+##### You can manually refresh token
 ```javascript
-snap.setAccessToken('<token>');
 snap.setRefreshToken('<token>');
 ```
 
@@ -165,13 +164,18 @@ snap.me(function(err, user){
 #### [Get all organizations](https://developers.snapchat.com/api/docs/#get-all-organizations)
 
 ```javascript
-snap.organization.getAllOrganizations(callback);
+snap.organization.getAllOrganizations(options, callback);
 ```
+
+##### Parameter
+
+- options (object) 
+- Available options - 'withAdAccounts': <boolean>
 
 ##### Example
 
 ```javascript
-snap.organization.getAllOrganizations(function(err, orgs){
+snap.organization.getAllOrganizations({ withAdAccounts: true }, function(err, orgs){
   if(err)
     console.log(err);
   else
