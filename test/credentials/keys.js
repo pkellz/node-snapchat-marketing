@@ -3,4 +3,4 @@ module.exports = {
   CLIENT_SECRET: '<your_client_secret>',
   REDIRECT_URI: '<your_redirect_uri>',
   REFRESH_TOKEN:'<your_refresh_token>'
-}
+};

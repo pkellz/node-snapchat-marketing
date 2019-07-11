@@ -53,7 +53,7 @@
   },
   "scripts": {
     "test": "jest",
-    "format": "eslint ./lib/**/*.js --fix"
+    "format": "eslint ./lib/**/*.js ./test/**/*.js --fix"
   },
   "version": "1.0.18",
   "devDependencies": {
