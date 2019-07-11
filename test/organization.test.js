@@ -1,6 +1,6 @@
 const Snap = require('../index');
-const credentials = require('../auth/keys.js');
-const TEST_ORGANIZATION_ID = '581a23ce-309b-4bcd-86b2-bc9df51f78e5';
+const credentials = require('./credentials/keys.js');
+const TEST_ORGANIZATION_ID = '';
 const snap = new Snap({
 	client_id: credentials.CLIENT_ID,
 	client_secret: credentials.CLIENT_SECRET,

@@ -251,3 +251,20 @@ snap.media.getAllMedia(adAccountId, function(err,media)
       console.log(media);
   })
 ```
+
+## :bar_chart: Testing
+Before you try to run any tests, you MUST go to `test/credentials/keys.js` and fill in your app credentials.
+
+```javascript
+module.exports = {
+  CLIENT_ID: '<your_client_id>',
+  CLIENT_SECRET: '<your_client_secret>',
+  REDIRECT_URI: '<your_redirect_uri>',
+  REFRESH_TOKEN:'<your_refresh_token>'
+}
+```
+
+Then, you can execute tests using:
+```javascript
+npm run test
+```
