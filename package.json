@@ -31,7 +31,8 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "simple-oauth2": "^2.2.1"
   },
   "deprecated": false,
   "description": "Unofficial Node library for the Snapchat Marketing API",
