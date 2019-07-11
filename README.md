@@ -71,7 +71,7 @@ app.get('/snap/callback', (req,res)=>{
 });
 ```
 
-##### You can manually refresh token
+##### You can manually set the refresh token. As long as you set the refresh token, the Snap object will automatically handle refreshing access tokens when they expire.
 ```javascript
 snap.setRefreshToken('<token>');
 ```
@@ -169,8 +169,8 @@ snap.organization.getAllOrganizations(options, callback);
 
 ##### Parameter
 
-- options (object) 
-- Available options - 'withAdAccounts': <boolean>
+- options (object)
+- Available options - 'withAdAccounts': boolean
 
 ##### Example
 
