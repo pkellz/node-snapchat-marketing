@@ -58,7 +58,7 @@ The URL will lead to a page where your user will be required to login and approv
 To complete the authorization you now need to receive the callback and convert the given authorization code into an OAuth access token. You can accomplish that using `snap.authorization`. This method will retrieve and store the access_token, refresh_token, and token expiration date inside the Snap object. Access tokens expire after 1800 seconds (30 minutes).
 
 
-In Express - If your 'redirect_uri' is https://example.com/snap/callback, your route could look like:
+In Express - If your `redirect_uri` is https://example.com/snap/callback, your route could look like:
 
 ```javascript
 app.get('/snap/callback', (req,res)=>{
@@ -71,11 +71,11 @@ app.get('/snap/callback', (req,res)=>{
 });
 ```
 
-##### You can manually set the refresh token. As long as you set the refresh token, the Snap object will automatically handle refreshing access tokens when they expire.
+##### At this point the access token, refresh token, and token expiration are saved in the `snap` instance.
+##### You can also set a refresh token globally to avoid re-requesting credentials when you reset your server.
 ```javascript
 snap.setRefreshToken('<token>');
 ```
-
 
 ### Step Three: Make HTTP requests to available resources
 
@@ -125,7 +125,8 @@ snap.authorization(options, callback);
 
 ##### Parameter
 
-- options (object) - Object with attribute authorization_code OR refresh_token
+- options (object) - Object with attribute authorization_code
+- Available options - 'authorization_code': string
 
 ##### Example
 
