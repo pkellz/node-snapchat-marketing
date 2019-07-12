@@ -8,10 +8,12 @@ const snap = new Snap({
 
 snap.setRefreshToken(credentials.REFRESH_TOKEN);
 
-it('should refresh expired access tokens', async done => {
-  snap._setAccessToken('');
-  await snap.refreshAccessToken().then(()=>{
-    expect(snap.accessToken).not.toBe('');
-    done();
-  });
+describe('@Auth', function(){
+  it('should refresh expired access tokens', async done => {
+    snap._setAccessToken('');
+    await snap.refreshAccessToken().then(()=>{
+      expect(snap.accessToken).not.toBe('');
+      done();
+    });
+  });  
 });

@@ -1,6 +1,7 @@
 const Snap = require('../index');
 const credentials = require('./credentials/keys.js');
 const TEST_ORGANIZATION_ID = '';
+const TEST_ACCOUNT_ID = '';
 const snap = new Snap({
   client_id: credentials.CLIENT_ID,
   client_secret: credentials.CLIENT_SECRET,
@@ -9,21 +10,24 @@ const snap = new Snap({
 
 snap.setRefreshToken(credentials.REFRESH_TOKEN);
 
-describe('@Organization', function(){
-  it('should get all organizations', done => {
-    snap.organization.getAllOrganizations(function(err, orgs)
+describe('@AdAccount', function()
+{
+  it('should get all Ad Accounts', done => {
+    snap.adaccount.getAllAdAccounts(TEST_ORGANIZATION_ID, function(err, accounts)
     {
+      console.log(accounts);
       expect(err).toBeNull();
-      expect(orgs).not.toBeNull();
+      expect(accounts).not.toBeNull();
       done();
     });
   });
 
-  it('should get an organization by id', done => {
-    snap.organization.getOrganizationById(TEST_ORGANIZATION_ID, function(err, org)
+  it('should get an Ad Account by Id', done => {
+    snap.adaccount.getAdAccountById(TEST_ACCOUNT_ID, function(err, account)
     {
+      console.log(account);
       expect(err).toBeNull();
-      expect(org).not.toBeNull();
+      expect(account).not.toBeNull();
       done();
     });
   });
