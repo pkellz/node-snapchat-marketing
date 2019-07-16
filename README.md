@@ -21,7 +21,7 @@ npm install node-snapchat-marketing
 In order to use this module, you have to import it in your application first:
 
 ```javascript
-var snap = require('node-snapchat-marketing');
+const Snap = require('node-snapchat-marketing');
 ```
 
 Next, initialize the Snap object with the keys you obtained from the [Snapchat business dashboard](https://business.snapchat.com/):
