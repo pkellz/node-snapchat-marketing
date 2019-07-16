@@ -55,7 +55,7 @@
     "test": "jest",
     "format": "eslint ./lib/**/*.js ./test/**/*.js --fix"
   },
-  "version": "1.0.19",
+  "version": "1.0.20",
   "devDependencies": {
     "eslint": "^6.0.1",
     "jest": "^24.8.0"
