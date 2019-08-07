@@ -1,6 +1,6 @@
 const Snap = require('../index');
 const credentials = require('./credentials/keys.js');
-const TEST_ACCOUNT_ID = '';
+const TEST_ACCOUNT_ID = process.env.TEST_ACCOUNT_ID;
 const snap = new Snap({
   client_id: credentials.CLIENT_ID,
   client_secret: credentials.CLIENT_SECRET,
@@ -25,7 +25,7 @@ describe('@Media', function(){
   });
 
   it('should get all Media for the authenticated account', done => {
-    snap.media.getAllMedia(TEST_ACCOUNT_ID, function(err,res)
+    snap.media.getAll(TEST_ACCOUNT_ID, function(err,res)
     {
       expect(err).toBeNull();
       expect(res).not.toBeNull();

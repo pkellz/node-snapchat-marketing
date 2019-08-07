@@ -14,7 +14,7 @@ snap.setRefreshToken(credentials.REFRESH_TOKEN);
 describe('@AdSquad', function()
 {
   it('should get all Ad Squads (By Campaign)', done => {
-    snap.adsquad.getAllAdSquadsCampaign(TEST_CAMPAIGN_ID, function(err, squads)
+    snap.adsquad.getAll(TEST_CAMPAIGN_ID, function(err, squads)
     {
       console.log(squads);
       expect(err).toBeNull();
@@ -24,7 +24,7 @@ describe('@AdSquad', function()
   });
 
   it('should get all Ad Squads (By Ad Account)', done => {
-    snap.adsquad.getAllAdSquadsAdAccount(TEST_ACCOUNT_ID, function(err, squads)
+    snap.adsquad.getAllByAccountId(TEST_ACCOUNT_ID, function(err, squads)
     {
       console.log(squads);
       expect(err).toBeNull();

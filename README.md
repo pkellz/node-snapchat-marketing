@@ -81,10 +81,10 @@ snap.setRefreshToken('<token>');
 
 Now that you are authenticated, you can issue requests using the provided library methods.
 
-For instance, to obtain a list of all available organizations associated with your account, you can use `snap.organization.getAllOrganizations`.
+For instance, to obtain a list of all available organizations associated with your account, you can use `snap.organization.getAll`.
 
 ```javascript
-snap.organization.getAllOrganizations(function(err, orgs)
+snap.organization.getAll(function(err, orgs)
 {
   if(err)
     console.log(err);
@@ -165,7 +165,7 @@ snap.me(function(err, user){
 #### [Get all organizations](https://developers.snapchat.com/api/docs/#get-all-organizations)
 
 ```javascript
-snap.organization.getAllOrganizations(options, callback);
+snap.organization.getAll(options, callback);
 ```
 
 ##### Parameter
@@ -176,7 +176,7 @@ snap.organization.getAllOrganizations(options, callback);
 ##### Example
 
 ```javascript
-snap.organization.getAllOrganizations({ withAdAccounts: true }, function(err, orgs){
+snap.organization.getAll({ withAdAccounts: true }, function(err, orgs){
   if(err)
     console.log(err);
   else
@@ -187,13 +187,13 @@ snap.organization.getAllOrganizations({ withAdAccounts: true }, function(err, or
 #### [Get organization by id](https://developers.snapchat.com/api/docs/#get-a-specific-organization)
 
 ```javascript
-snap.organization.getOrganizationById(id, callback);
+snap.organization.getById(id, callback);
 ```
 
 ##### Example
 
 ```javascript
-snap.organization.getOrganizationById('<organization_id>', function(err, org){
+snap.organization.getById('<organization_id>', function(err, org){
   if(err)
     console.log(err);
    else
@@ -233,7 +233,7 @@ snap.media.createMedia(newMedia, function(err, res){
 #### [Get all Media associated with the authenticated account](https://developers.snapchat.com/api/docs/#get-all-media)
 
 ```javascript
-snap.media.getAllMedia(adAccountId, callback);
+snap.media.getAll(adAccountId, callback);
 ```
 
 ##### Parameter
@@ -243,7 +243,7 @@ snap.media.getAllMedia(adAccountId, callback);
 ##### Example
 
 ```javascript
-snap.media.getAllMedia(adAccountId, function(err,media)
+snap.media.getAll(adAccountId, function(err,media)
   {
     if(err)
       console.log(err);

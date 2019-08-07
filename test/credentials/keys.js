@@ -1,6 +1,8 @@
+require('dotenv').config()
+
 module.exports = {
-  CLIENT_ID: '<your_client_id>',
-  CLIENT_SECRET: '<your_client_secret>',
-  REDIRECT_URI: '<your_redirect_uri>',
-  REFRESH_TOKEN:'<your_refresh_token>'
+  CLIENT_ID: process.env.CLIENT_ID,
+  CLIENT_SECRET: process.env.SECRET,
+  REDIRECT_URI: process.env.REDIRECT_URI,
+  REFRESH_TOKEN: process.env.REFRESH_TOKEN
 };

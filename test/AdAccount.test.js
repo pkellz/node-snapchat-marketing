@@ -13,7 +13,7 @@ snap.setRefreshToken(credentials.REFRESH_TOKEN);
 describe('@AdAccount', function()
 {
   it('should get all Ad Accounts', done => {
-    snap.adaccount.getAllAdAccounts(TEST_ORGANIZATION_ID, function(err, accounts)
+    snap.adaccount.getAll(TEST_ORGANIZATION_ID, function(err, accounts)
     {
       console.log(accounts);
       expect(err).toBeNull();
@@ -23,7 +23,7 @@ describe('@AdAccount', function()
   });
 
   it('should get an Ad Account by Id', done => {
-    snap.adaccount.getAdAccountById(TEST_ACCOUNT_ID, function(err, account)
+    snap.adaccount.getById(TEST_ACCOUNT_ID, function(err, account)
     {
       console.log(account);
       expect(err).toBeNull();
